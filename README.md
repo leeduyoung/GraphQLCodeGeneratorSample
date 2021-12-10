@@ -5,6 +5,7 @@
 GraphQL Code Generator Sample Project
 
 ## Link
+https://ithub.tistory.com/354
 
 ## Installation
 
