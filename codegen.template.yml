@@ -8,7 +8,7 @@ overwrite: true
 schema: write
 
 # gql이 작성된 경로 (query, mutation과 같은 operation도 생성할 경우 사용)
-# documents: write      # ex.'src/my-query.ts'
+# documents: write      # ex.'src/**/!(*.d).{ts,tsx}'
 
 # 파일 생성 경로
 generates:

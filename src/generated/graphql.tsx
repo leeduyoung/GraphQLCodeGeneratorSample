@@ -1,8 +1,11 @@
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -4653,3 +4656,121 @@ export type WeatherMain = {
 export type CreateLessonAllIndexInput = {
   indexType: LessonIndexType;
 };
+
+export type ContainersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ContainersQuery = { __typename?: 'Query', containers: Array<{ __typename?: 'Container', id: string, name: string, description?: string | null | undefined, area: AreaType, isPublic: boolean, status: string, createdAt: string, stack: { __typename?: 'Stack', software: SoftwareType, cpu: string, storageSize: string, memory: string }, accessLink: { __typename?: 'AccessLink', workspace: string, terminal: string }, owner: { __typename?: 'User', id: string, name: string } }> };
+
+export type BoardNoticeQueryVariables = Exact<{
+  where: BoardNoticeWhere;
+}>;
+
+
+export type BoardNoticeQuery = { __typename?: 'Query', boardNotice?: { __typename?: 'BoardNotice', id: string, title: string, content: string, serviceType: BoardServiceType, viewCount: number, createdAt: string, files: Array<{ __typename?: 'BoardFile', id: string, type: string, name: string, url: string } | null | undefined>, cursorInfo: { __typename?: 'CursorInfo', before?: string | null | undefined, after?: string | null | undefined } } | null | undefined };
+
+
+export const ContainersDocument = gql`
+    query containers {
+  containers {
+    id
+    name
+    description
+    area
+    isPublic
+    stack {
+      software
+      cpu
+      storageSize
+      memory
+    }
+    accessLink {
+      workspace
+      terminal
+    }
+    status
+    owner {
+      id
+      name
+    }
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useContainersQuery__
+ *
+ * To run a query within a React component, call `useContainersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useContainersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useContainersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useContainersQuery(baseOptions?: Apollo.QueryHookOptions<ContainersQuery, ContainersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ContainersQuery, ContainersQueryVariables>(ContainersDocument, options);
+      }
+export function useContainersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ContainersQuery, ContainersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ContainersQuery, ContainersQueryVariables>(ContainersDocument, options);
+        }
+export type ContainersQueryHookResult = ReturnType<typeof useContainersQuery>;
+export type ContainersLazyQueryHookResult = ReturnType<typeof useContainersLazyQuery>;
+export type ContainersQueryResult = Apollo.QueryResult<ContainersQuery, ContainersQueryVariables>;
+export const BoardNoticeDocument = gql`
+    query boardNotice($where: BoardNoticeWhere!) {
+  boardNotice(where: $where) {
+    id
+    title
+    content
+    serviceType
+    files {
+      id
+      type
+      name
+      url
+    }
+    viewCount
+    createdAt
+    cursorInfo {
+      before
+      after
+    }
+  }
+}
+    `;
+
+/**
+ * __useBoardNoticeQuery__
+ *
+ * To run a query within a React component, call `useBoardNoticeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBoardNoticeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBoardNoticeQuery({
+ *   variables: {
+ *      where: // value for 'where'
+ *   },
+ * });
+ */
+export function useBoardNoticeQuery(baseOptions: Apollo.QueryHookOptions<BoardNoticeQuery, BoardNoticeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<BoardNoticeQuery, BoardNoticeQueryVariables>(BoardNoticeDocument, options);
+      }
+export function useBoardNoticeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BoardNoticeQuery, BoardNoticeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<BoardNoticeQuery, BoardNoticeQueryVariables>(BoardNoticeDocument, options);
+        }
+export type BoardNoticeQueryHookResult = ReturnType<typeof useBoardNoticeQuery>;
+export type BoardNoticeLazyQueryHookResult = ReturnType<typeof useBoardNoticeLazyQuery>;
+export type BoardNoticeQueryResult = Apollo.QueryResult<BoardNoticeQuery, BoardNoticeQueryVariables>;
